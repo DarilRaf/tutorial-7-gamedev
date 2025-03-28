@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://bris0s36i4p5s"]
+
+[ext_resource type="PackedScene" uid="uid://3sjt2g7v6wx3" path="res://scenes/Player.tscn" id="1_2qa6q"]
+[ext_resource type="PackedScene" uid="uid://cu2f0pweh1vn7" path="res://scenes/World1.tscn" id="2_b5qn8"]
+[ext_resource type="PackedScene" uid="uid://3ehsdmofe0bh" path="res://scenes/Goal.tscn" id="3_r36p4"]
+[ext_resource type="Script" path="res://scenes/goal.gd" id="4_gq0sq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gypty"]
+size = Vector3(18.855, 1, 14.5966)
+
+[node name="Level1" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_2qa6q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.2421, -34.5826)
+
+[node name="World1" parent="." instance=ExtResource("2_b5qn8")]
+
+[node name="Goal" parent="." instance=ExtResource("3_r36p4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.77616, 17.4349)
+sceneName = "WinScreen"
+
+[node name="FallZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.75144, 17.4349)
+script = ExtResource("4_gq0sq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FallZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.529541, -5.99393, -20.1152)
+shape = SubResource("BoxShape3D_gypty")
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.96316, -2.37206)
+omni_range = 4096.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.29143, -34.2468)
+omni_range = 4096.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.29143, 13.4143)
+omni_range = 4096.0
+
+[connection signal="body_entered" from="FallZone" to="FallZone" method="_on_body_entered"]
